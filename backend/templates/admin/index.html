@@ -1,0 +1,168 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}{{ block.super }}{% endblock %}
+
+{% block coltype %}colMS{% endblock %}
+
+{% block bodyclass %}{{ block.super }} dashboard{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
+{% block content %}
+<div id="content-main">
+
+  <!-- Welcome Header Banner -->
+  <div class="dashboard-header-banner">
+    <div>
+      <h2>Welcome back, {{ user.first_name|default:user.username }} 👋</h2>
+      <p>Manage your portfolio projects, technical skills, career experience, and review incoming contact messages.</p>
+    </div>
+    <div>
+      <a href="http://localhost:5173" target="_blank" rel="noopener" class="action-btn primary">
+        🌐 Preview Live Website
+      </a>
+    </div>
+  </div>
+
+  <!-- Key Statistics Cards Grid -->
+  <div class="dashboard-stat-grid">
+    <div class="stat-card">
+      <div class="stat-icon">🚀</div>
+      <div class="stat-value">{{ stats.projects_count|default:0 }}</div>
+      <div class="stat-label">Total Projects ({{ stats.featured_projects|default:0 }} Featured)</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">⚡</div>
+      <div class="stat-value">{{ stats.skills_count|default:0 }}</div>
+      <div class="stat-label">Technical Skills</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-icon">💼</div>
+      <div class="stat-value">{{ stats.experience_count|default:0 }}</div>
+      <div class="stat-label">Experience Entries</div>
+    </div>
+
+    <div class="stat-card {% if stats.unread_messages_count > 0 %}unread-badge{% endif %}">
+      <div class="stat-icon">📬</div>
+      <div class="stat-value">{{ stats.messages_count|default:0 }}</div>
+      <div class="stat-label">
+        Contact Messages
+        {% if stats.unread_messages_count > 0 %}
+          <span class="badge badge-unread" style="margin-left: 6px;">{{ stats.unread_messages_count }} Unread</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Action Shortcuts -->
+  <div class="dashboard-actions-bar">
+    <a href="{% url 'admin:portfolio_project_add' %}" class="action-btn">
+      ➕ Add New Project
+    </a>
+    <a href="{% url 'admin:portfolio_skill_add' %}" class="action-btn">
+      ➕ Add Skill
+    </a>
+    <a href="{% url 'admin:portfolio_experience_add' %}" class="action-btn">
+      ➕ Add Experience
+    </a>
+    <a href="{% url 'admin:portfolio_contactmessage_changelist' %}" class="action-btn">
+      📩 Review Messages {% if stats.unread_messages_count > 0 %}({{ stats.unread_messages_count }}){% endif %}
+    </a>
+  </div>
+
+  <!-- Recent Contact Messages Feed -->
+  {% if recent_messages %}
+  <div class="dashboard-section">
+    <h3>
+      <span>📬 Recent Contact Messages</span>
+      <a href="{% url 'admin:portfolio_contactmessage_changelist' %}" style="font-size: 0.85rem; font-weight: normal;">View All Messages →</a>
+    </h3>
+    <div class="recent-messages-list">
+      {% for msg in recent_messages %}
+        <div class="message-item {% if not msg.is_read %}unread{% endif %}">
+          <div style="flex: 1;">
+            <div class="msg-author">
+              {{ msg.name }} 
+              <span class="msg-email">&lt;{{ msg.email }}&gt;</span>
+              {% if not msg.is_read %}
+                <span class="badge badge-unread" style="margin-left: 8px;">New</span>
+              {% else %}
+                <span class="badge badge-read" style="margin-left: 8px;">Read</span>
+              {% endif %}
+            </div>
+            <div class="msg-subject">{{ msg.subject|default:"No Subject" }}</div>
+            <div class="msg-preview">{{ msg.message|truncatewords:20 }}</div>
+          </div>
+          <div style="text-align: right;">
+            <div class="msg-date">{{ msg.created_at|date:"M d, Y H:i" }}</div>
+            <a href="{% url 'admin:portfolio_contactmessage_change' msg.id %}" class="action-btn" style="padding: 4px 10px; font-size: 0.8rem; margin-top: 8px;">Read Full →</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- Django App & Models Section -->
+  {% if app_list %}
+    {% for app in app_list %}
+      <div class="module">
+        <h2>{{ app.name }} Content Management</h2>
+        <table>
+          <tbody>
+            {% for model in app.models %}
+              <tr class="model-{{ model.object_name|lower }}">
+                <th scope="row" style="font-size: 1rem; font-weight: 600;">
+                  <a href="{{ model.admin_url }}">{{ model.name }}</a>
+                </th>
+                <td style="text-align: right;">
+                  {% if model.add_url %}
+                    <a href="{{ model.add_url }}" class="action-btn" style="padding: 4px 12px; font-size: 0.82rem;">+ Add {{ model.name }}</a>
+                  {% endif %}
+                  {% if model.admin_url %}
+                    <a href="{{ model.admin_url }}" class="action-btn" style="padding: 4px 12px; font-size: 0.82rem; margin-left: 6px;">Manage {{ model.name }}</a>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>{% translate 'You don’t have permission to view or edit anything.' %}</p>
+  {% endif %}
+
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related">
+    <div class="module" id="recent-actions-module">
+        <h2>{% translate 'Recent Actions' %}</h2>
+        <h3>{% translate 'My Actions' %}</h3>
+            {% load log %}
+            {% get_admin_log 10 as admin_log for_user user %}
+            {% if not admin_log %}
+            <p style="padding: 14px 20px; color: var(--text-muted);">{% translate 'None available' %}</p>
+            {% else %}
+            <ul class="actionlist" style="padding: 10px 20px; list-style: none;">
+            {% for entry in admin_log %}
+            <li class="{% if entry.is_addition %}addlink{% endif %}{% if entry.is_change %}changelink{% endif %}{% if entry.is_deletion %}deletelink{% endif %}" style="margin-bottom: 8px;">
+                {% if entry.is_deletion %}
+                    {{ entry.object_repr }}
+                {% else %}
+                    <a href="{{ entry.get_admin_url }}">{{ entry.object_repr }}</a>
+                {% endif %}
+                <br>
+                <span class="mini quiet" style="font-size: 0.8rem; color: var(--text-muted);">{% filter capfirst %}{{ entry.content_type }}{% endfilter %}</span>
+            </li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+    </div>
+</div>
+{% endblock %}
