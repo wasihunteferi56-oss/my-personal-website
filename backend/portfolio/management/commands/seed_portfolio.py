@@ -178,10 +178,40 @@ class Command(BaseCommand):
         )
 
         self.stdout.write("Seeding certificates...")
-        Certificate.objects.update_or_create(
-            title="Udara Certificate",
-            organization="Udara",
-            defaults=dict(issue_date="2024", order=1),
-        )
+        certificates_list = [
+            dict(
+                title="Web Development Certificate",
+                organization="Udara Academy",
+                issue_date="2024",
+                credential_url="https://udara.academy",
+                image="certificates/cert-udara.jpg",
+                description="Certification in modern web development standards, responsive frontend design, and web architecture fundamentals.",
+                order=1,
+            ),
+            dict(
+                title="Full-Stack Python & Django Development",
+                organization="Global Tech Academy",
+                issue_date="2024",
+                credential_url="",
+                image="certificates/cert-python.jpg",
+                description="Comprehensive software engineering program covering Django REST framework, database design, and web application deployment.",
+                order=2,
+            ),
+            dict(
+                title="IT Support & Networking Specialist",
+                organization="IT Professional Institute",
+                issue_date="2023",
+                credential_url="",
+                image="certificates/cert-it-support.jpg",
+                description="Certification covering computer hardware troubleshooting, network infrastructure configuration, TCP/IP, and Windows Server administration.",
+                order=3,
+            ),
+        ]
+        for data in certificates_list:
+            Certificate.objects.update_or_create(
+                title=data["title"],
+                defaults=data,
+            )
 
         self.stdout.write(self.style.SUCCESS("Portfolio content seeded successfully."))
+

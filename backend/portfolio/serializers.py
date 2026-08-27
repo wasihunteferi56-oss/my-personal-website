@@ -79,7 +79,7 @@ class ExperienceSerializer(serializers.ModelSerializer):
 class CertificateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Certificate
-        fields = ["id", "title", "organization", "issue_date", "credential_url", "image"]
+        fields = ["id", "title", "organization", "issue_date", "credential_url", "image", "description"]
 
 
 class ContactMessageSerializer(serializers.ModelSerializer):

@@ -111,6 +111,7 @@ class Certificate(models.Model):
     issue_date = models.CharField(max_length=50, help_text="e.g. '2024' or 'March 2024'")
     credential_url = models.URLField(blank=True)
     image = models.ImageField(upload_to="certificates/", blank=True, null=True)
+    description = models.TextField(blank=True, help_text="Short description of the certificate.")
     order = models.PositiveIntegerField(default=0)
 
     class Meta:

@@ -1,8 +1,8 @@
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, MapPin, Sparkles, CheckCircle2 } from "lucide-react";
 import SectionTitle from "../components/SectionTitle.jsx";
 import { getIcon } from "../components/iconMap.js";
 import { useReveal } from "../hooks/useReveal.js";
-import { aboutContent, education } from "../data/portfolioData.js";
+import { aboutContent, education, personalInfo } from "../data/portfolioData.js";
 
 export default function About() {
   useReveal();
@@ -17,16 +17,54 @@ export default function About() {
             subtitle="A little about who I am, what drives me, and where I'm headed."
           />
 
-          <div className="two-col">
+          <div className="about-grid">
+            {/* PROFILE CARD WITH PICTURE */}
             <div className="reveal">
-              {aboutContent.paragraphs.map((p, i) => (
-                <p key={i} style={{ color: "var(--text-secondary)", marginBottom: 16, fontSize: "1.02rem" }}>
-                  {p}
-                </p>
-              ))}
+              <div className="card profile-card">
+                <div className="profile-image-wrap">
+                  <img
+                    src={personalInfo.profileImage}
+                    alt={`${personalInfo.name} Profile`}
+                    className="profile-img"
+                  />
+                  <div className="profile-status-badge">
+                    <span className="status-dot pulsing" />
+                    <span>Open for Work</span>
+                  </div>
+                </div>
+                <div className="profile-details">
+                  <h3 className="profile-name">{personalInfo.name}</h3>
+                  <p className="profile-role">{personalInfo.role}</p>
+                  
+                  <div className="profile-info-tags">
+                    <span className="profile-tag">
+                      <MapPin size={14} />
+                      {personalInfo.location}
+                    </span>
+                    <span className="profile-tag">
+                      <GraduationCap size={14} />
+                      Haramaya University
+                    </span>
+                  </div>
+                </div>
+              </div>
             </div>
 
+            {/* BIO & VALUES */}
             <div className="reveal">
+              <div className="about-bio">
+                <h3 className="about-heading">
+                  <Sparkles size={20} className="accent-icon" />
+                  Passionate IT Student & Developer
+                </h3>
+                {aboutContent.paragraphs.map((p, i) => (
+                  <p key={i} className="about-p">
+                    {p}
+                  </p>
+                ))}
+              </div>
+
+              <h4 className="values-title">Core Principles & Values</h4>
               <div className="values-grid">
                 {aboutContent.values.map((value) => {
                   const Icon = getIcon(value.icon);
@@ -43,7 +81,7 @@ export default function About() {
             </div>
           </div>
 
-          <div className="stats-grid">
+          <div className="stats-grid" style={{ marginTop: 40 }}>
             {aboutContent.stats.map((stat) => (
               <div key={stat.label} className="card stat-card reveal">
                 <div className="stat-value">{stat.value}</div>
@@ -89,3 +127,4 @@ export default function About() {
     </div>
   );
 }
+

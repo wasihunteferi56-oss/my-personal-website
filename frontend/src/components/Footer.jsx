@@ -10,7 +10,7 @@ export default function Footer() {
           <p className="footer-copy">
             © {year} {personalInfo.name}. All rights reserved.
           </p>
-          <p className="footer-tagline">Built with React &amp; Django.</p>
+          <p className="footer-tagline">Build &amp; Trust.</p>
         </div>
         <SocialLinks />
       </div>

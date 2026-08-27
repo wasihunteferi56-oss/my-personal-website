@@ -43,7 +43,7 @@ function TerminalPanel() {
   return (
     <div className="terminal">
       <div className="floating-chip chip-1">🎓 Haramaya University</div>
-      <div className="floating-chip chip-2">💻 IT Intern</div>
+      <div className="floating-chip chip-2">💻 Trying</div>
       <div className="terminal-bar">
         <span className="terminal-dot red" />
         <span className="terminal-dot yellow" />
@@ -65,10 +65,10 @@ function TerminalPanel() {
           <span className="terminal-key">program</span> = <span className="terminal-string">"Information Technology"</span>
         </div>
         <div className="terminal-line">
-          <span className="terminal-key">currently</span> = <span className="terminal-string">"IT Intern"</span>
+          <span className="terminal-key">currently</span> = <span className="terminal-string">"IT Intern,MCE"</span>
         </div>
         <div className="terminal-line">
-          <span className="terminal-key">interests</span> = [<span className="terminal-string">"web dev"</span>, <span className="terminal-string">"AI"</span>, <span className="terminal-string">"networking"</span>]
+          <span className="terminal-key">interests</span> = <span className="terminal-string">"web dev"</span>, <span className="terminal-string">"AI"</span>, <span className="terminal-string">"networking"</span>
         </div>
         <div className="terminal-line">
           <span className="terminal-key">goal</span> = <span className="terminal-string">"full-stack software engineer"</span>

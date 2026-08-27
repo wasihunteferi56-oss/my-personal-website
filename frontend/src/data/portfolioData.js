@@ -5,9 +5,10 @@
 export const personalInfo = {
   name: "Wasihun Teferi",
   initials: "WT",
-  location: "Ethiopia",
+  location: "Addis Ababa, Ethiopia",
   role: "Information Technology Student & Aspiring Full-Stack Developer",
-  email: "wasihunteferi@example.com", // TODO: replace with real email
+  email: "wasihunteferi56@gmail.com",
+  profileImage: "/images/profile.jpg",
   resumeFile: "/resume.pdf", // Place your real resume.pdf in frontend/public/
   typingPhrases: [
     "Information Technology Student",
@@ -44,10 +45,40 @@ export const aboutContent = {
   stats: [
     { label: "Projects Built", value: "6+" },
     { label: "Technologies Learned", value: "20+" },
-    { label: "Certificates", value: "1" },
+    { label: "Certificates Earned", value: "3+" },
     { label: "Currently Learning", value: "AI & Cloud" },
   ],
 };
+
+export const certificatesData = [
+  {
+    id: 1,
+    title: "Entrepreneurship Training Workshop",
+    organization: " Haramya University",
+    issue_date: "2025",
+    credential_url: "#",
+    image: "/images/etrepreneour.jpg",
+    description: "Entrepreneurship Training Certificate  in Exploring Pathways for comme rcial Impact: Turning Scientific Work into Market-Ready Impact Entrepreneurship.",
+  },
+  {
+    id: 2,
+    title: " Idea Competition CERTIFICATE OF COMPLETION",
+    organization: "haramaya university",
+    issue_date: "2025",
+    credential_url: "#",
+    image: "/images/ibic.jpg",
+    description: "Comprehensive software engineering program covering Django REST framework, database design, and web application deployment.",
+  },
+  {
+    id: 3,
+    title: "IT Support & Networking Specialist",
+    organization: "IT Professional Institute",
+    issue_date: "2023",
+    credential_url: "#",
+    image: "/images/cert-it-support.jpg",
+    description: "Certification covering computer hardware troubleshooting, network infrastructure configuration, TCP/IP, and Windows Server administration.",
+  },
+];
 
 export const education = {
   institution: "Haramaya University",
@@ -63,13 +94,14 @@ export const education = {
     "Software Design",
     "Project Management",
     "System Analysis and Design",
+    "others+",
   ],
 };
 
 export const socialLinks = [
   { name: "GitHub", url: "https://github.com/wasihunteferi", icon: "github" },
   { name: "LinkedIn", url: "https://linkedin.com/in/wasihunteferi", icon: "linkedin" },
-  { name: "Email", url: "mailto:wasihunteferi@example.com", icon: "mail" },
+  { name: "Email", url: "mailto:wasihunteferi56@gmail.com", icon: "mail" },
 ];
 
 export const navItems = [
