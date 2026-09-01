@@ -108,7 +108,13 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # CORS - allow the Vite dev server to talk to the API
 CORS_ALLOWED_ORIGINS = os.environ.get(
     "CORS_ALLOWED_ORIGINS",
-    "http://localhost:5173,http://127.0.0.1:5173",
+    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174",
+).split(",")
+
+# CSRF - trusted origins for the Vite dev server
+CSRF_TRUSTED_ORIGINS = os.environ.get(
+    "CSRF_TRUSTED_ORIGINS",
+    "http://localhost:5173,http://127.0.0.1:5173,http://localhost:5174,http://127.0.0.1:5174",
 ).split(",")
 
 # Django REST Framework

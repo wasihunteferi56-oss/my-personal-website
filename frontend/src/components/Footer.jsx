@@ -10,7 +10,11 @@ export default function Footer() {
           <p className="footer-copy">
             © {year} {personalInfo.name}. All rights reserved.
           </p>
-          <p className="footer-tagline">Build &amp; Trust.</p>
+          <div className="footer-links">
+            <p className="footer-tagline">Build &amp; Trust.</p>
+            <span className="footer-divider">•</span>
+            <a href="/admin/" className="admin-link">Admin Panel</a>
+          </div>
         </div>
         <SocialLinks />
       </div>
