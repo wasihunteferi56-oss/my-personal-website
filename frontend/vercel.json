@@ -1,8 +1,23 @@
+// // {
+// //   "rewrites": [
+// //     {
+// //       "source": "/(.*)",
+// //       "destination": "/index.html"
+// //     }
+// //   ]
+// // }
 // {
-//   "rewrites": [
+//   "version": 2,
+//   "builds": [
 //     {
-//       "source": "/(.*)",
-//       "destination": "/index.html"
+//       "src": "backend/config/asgi.py",
+//       "use": "@vercel/python"
+//     }
+//   ],
+//   "routes": [
+//     {
+//       "src": "/(.*)",
+//       "dest": "backend/config/asgi.py"
 //     }
 //   ]
 // }
@@ -10,14 +25,14 @@
   "version": 2,
   "builds": [
     {
-      "src": "backend/config/asgi.py",
+      "src": "backend/config/wsgi.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "backend/config/asgi.py"
+      "dest": "backend/config/wsgi.py"
     }
   ]
 }
